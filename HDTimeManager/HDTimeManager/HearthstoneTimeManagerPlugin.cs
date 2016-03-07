@@ -6,9 +6,10 @@ namespace HDTimeManager
 {
     public class HearthstoneTimeManagerPlugin : IPlugin
     {
+        internal ConfigInfo Config;
         public void OnLoad()
         {
-            throw new NotImplementedException();
+            Config = ConfigInfo.Load();
         }
 
         public void OnUnload()
