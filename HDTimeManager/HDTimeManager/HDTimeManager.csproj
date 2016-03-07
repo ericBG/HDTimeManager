@@ -47,12 +47,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigInfo.cs" />
     <Compile Include="HearthstoneTimeManagerPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeRangeInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.cmd" $(ConfigurationName) "$(ProjectDir)$(OutDir)$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.cmd" $(ConfigurationName) "$(ProjectDir)$(OutDir)$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
