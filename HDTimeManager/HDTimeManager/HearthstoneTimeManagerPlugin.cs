@@ -1,30 +1,49 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.Plugins;
+using Hearthstone_Deck_Tracker.API;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace HDTimeManager
 {
     public class HearthstoneTimeManagerPlugin : IPlugin
     {
+        private Days Today => (Days)((int) Math.Pow(2, (int)DateTime.Today.DayOfWeek));
         internal ConfigInfo Config;
         public void OnLoad()
         {
             Config = ConfigInfo.Load();
+            GameEvents.OnGameEnd.Add(CheckTime);
+        }
+
+        private void CheckTime()
+        {
+            TimeSpan timeSpent = Core.Game.CurrentGameStats.EndTime - Core.Game.CurrentGameStats.StartTime;
+            if (Config.DayLastUpdated != DateTime.Today)
+            {
+                Config.DayLastUpdated = DateTime.Today;
+                Config.TimeSpentToday = timeSpent;
+            }
+            else Config.TimeSpentToday += timeSpent;
+            Config.Save();
+            foreach (TimeRangeInfo info in Config.Ranges.Where(i => i.Active.HasFlag(Today)))
+            {
+                if (Config.TimeSpentToday > (info.Time - info.Range))
+                    Core.MainWindow.ShowMessageAsync("WARNING", info.Message);
+            }
         }
 
         public void OnUnload()
         {
-            throw new NotImplementedException();
         }
 
         public void OnButtonPress()
         {
-            throw new NotImplementedException();
         }
 
         public void OnUpdate()
         {
-            throw new NotImplementedException();
         }
 
         public string Name => "Hearthstone Time Manager";

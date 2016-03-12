@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Hearthstone_Deck_Tracker;
@@ -26,6 +27,8 @@ namespace HDTimeManager
         {
         }
 
+        public TimeSpan TimeSpentToday;
+        public DateTime DayLastUpdated;
         public List<TimeRangeInfo> Ranges { get; set; }
     }
 }
