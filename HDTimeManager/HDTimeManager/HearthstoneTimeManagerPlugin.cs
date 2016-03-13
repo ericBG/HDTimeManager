@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.Plugins;
@@ -9,7 +10,7 @@ namespace HDTimeManager
 {
     public class HearthstoneTimeManagerPlugin : IPlugin
     {
-        private Days Today => (Days)((int) Math.Pow(2, (int)DateTime.Today.DayOfWeek));
+        private static Days Today => (Days)((int) Math.Pow(2, (int)DateTime.Today.DayOfWeek));
         internal ConfigInfo Config;
         public void OnLoad()
         {
@@ -38,9 +39,7 @@ namespace HDTimeManager
         {
         }
 
-        public void OnButtonPress()
-        {
-        }
+        public void OnButtonPress() => new OptionsWindow(Config).Show();
 
         public void OnUpdate()
         {

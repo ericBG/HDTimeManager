@@ -1,0 +1,47 @@
+﻿<controls:MetroWindow x:Class="HDTimeManager.OptionsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HDTimeManager"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" Title="Time Options"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             Height="255" MinHeight="255" MaxHeight="255" Width="400" MinWidth="400" MaxWidth="400"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <local:TimespanToStringConverter x:Key="TimespanConverter"/>
+            <local:EnumDescriptionAttributeConverter x:Key="EnumConverter"/>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width ="4*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=Config.Ranges}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}: {1} ± {2} on {3}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Time" Converter="{StaticResource TimespanConverter}" ConverterParameter="hh'hr 'mm' min'"/>
+                                <Binding Path="Range" Converter="{StaticResource TimespanConverter}" ConverterParameter="mm' min'"/>
+                                <Binding Path="Active" Converter="{StaticResource EnumConverter}"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</controls:MetroWindow>

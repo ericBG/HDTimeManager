@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace HDTimeManager
 {
@@ -12,5 +13,7 @@ namespace HDTimeManager
         Thursday = 0x10,
         Friday = 0x20,
         Saturday = 0x40,
+        [Description("all days")]
+        All = 0x7F
     }
 }

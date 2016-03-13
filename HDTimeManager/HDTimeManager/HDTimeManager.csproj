@@ -54,14 +54,26 @@
   <ItemGroup>
     <Compile Include="ConfigInfo.cs" />
     <Compile Include="Days.cs" />
+    <Compile Include="EnumDescriptionAttributeConverter.cs" />
     <Compile Include="HearthstoneTimeManagerPlugin.cs" />
+    <Compile Include="OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeRangeInfo.cs" />
     <Compile Include="TimeSpan.cs" />
+    <Compile Include="TimespanToStringConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.cmd" $(ConfigurationName) "$(ProjectDir)$(OutDir)$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)build.cmd" $(ConfigurationName) "$(ProjectDir)$(OutDir)$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

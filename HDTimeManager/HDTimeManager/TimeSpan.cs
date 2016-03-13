@@ -18,8 +18,11 @@ namespace HDTimeManager
         public static bool operator >(TimeSpan a, TimeSpan b) => a._value > b._value;
         public static bool operator <(TimeSpan a, TimeSpan b) => a._value < b._value;
         public XmlSchema GetSchema() => null;
-        public void ReadXml(XmlReader reader) => _value = System.TimeSpan.Parse(reader.ReadContentAsString());
-        public void WriteXml(XmlWriter writer) => writer.WriteValue(_value.ToString());
+
+        public void ReadXml(XmlReader reader) => _value = XmlConvert.ToTimeSpan(reader.ReadElementContentAsString());
+
+        public void WriteXml(XmlWriter writer) => writer.WriteValue(XmlConvert.ToString(_value));
+
         public int CompareTo(TimeSpan other) => _value.CompareTo(other._value);
     }
 }
