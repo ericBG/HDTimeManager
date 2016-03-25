@@ -7,8 +7,7 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" Title="Time Options"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             Height="255" MinHeight="255" MaxHeight="255" Width="400" MinWidth="400" MaxWidth="400"
-             d:DesignHeight="300" d:DesignWidth="300">
+             Height="255" MinHeight="255" MaxHeight="255" Width="400" MinWidth="400" MaxWidth="400">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <local:TimespanToStringConverter x:Key="TimespanConverter"/>
@@ -25,9 +24,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=Config.Ranges}">
+        <ListView Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Path=Config.Ranges}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -43,5 +43,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Grid.Column="2" Grid.Row="1" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Margin="0,5,0,0" Click="Add">
+            <Image Source="plus.png"/>
+        </Button>
     </Grid>
 </controls:MetroWindow>
