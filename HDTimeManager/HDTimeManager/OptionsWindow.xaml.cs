@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace HDTimeManager
 {
@@ -18,8 +19,9 @@ namespace HDTimeManager
         private void Add(object sender, RoutedEventArgs e)
         {
             TimeRangeInfoWindow tsiw = new TimeRangeInfoWindow();
-            tsiw.Show();
+            tsiw.ShowDialog();
             if (tsiw.Result != null) Config.Ranges.Add(tsiw.Result);
+            Config.Save();
         }
     }
 }

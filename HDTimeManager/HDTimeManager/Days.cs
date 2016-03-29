@@ -6,6 +6,7 @@ namespace HDTimeManager
     [Flags]
     public enum Days
     {
+        None = 0x0,
         Sunday = 0x1,
         Monday = 0x2,
         Tuesday = 0x4,

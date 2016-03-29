@@ -55,6 +55,7 @@
     <Compile Include="ConfigInfo.cs" />
     <Compile Include="Days.cs" />
     <Compile Include="EnumDescriptionAttributeConverter.cs" />
+    <Compile Include="FlagsConverter.cs" />
     <Compile Include="HearthstoneTimeManagerPlugin.cs" />
     <Compile Include="OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
@@ -63,6 +64,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeRangeInfo.cs" />
     <Compile Include="TimeSpan.cs" />
+    <Compile Include="TimeRangeInfoWindow.xaml.cs">
+      <DependentUpon>TimeRangeInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TimespanToStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +74,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TimeRangeInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="plus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
