@@ -121,6 +121,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="appbar.edit.box.png" />
+    <Content Include="icons-license.txt" />
+    <Content Include="minus.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)build.cmd" $(ConfigurationName) "$(ProjectDir)$(OutDir)$(TargetFileName)"</PostBuildEvent>
