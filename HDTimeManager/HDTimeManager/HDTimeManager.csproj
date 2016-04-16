@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="TimeSpanSelector.xaml.cs">
       <DependentUpon>TimeSpanSelector.xaml</DependentUpon>
     </Compile>
@@ -122,9 +123,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="appbar.edit.box.png" />
+    <Resource Include="edit.png" />
     <Content Include="icons-license.txt" />
-    <Content Include="minus.png" />
+    <Resource Include="minus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

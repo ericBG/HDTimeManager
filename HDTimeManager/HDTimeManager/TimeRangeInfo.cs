@@ -7,5 +7,6 @@
         public Days Active { get; set; }
         public string Message { get; set; }
         public string Name { get; set; }
+        public override string ToString() => $"TRInfo Name {Name}";
     }
 }

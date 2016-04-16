@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using HDTimeManager.Annotations;
 using MahApps.Metro.Controls.Dialogs;
@@ -14,12 +13,16 @@ namespace HDTimeManager
     {
         private TimeRangeInfo _result;
         private bool? _shouldSave = null;
+        private readonly TimeRangeInfo _original;
 
         public TimeRangeInfoWindow(TimeRangeInfo result = null)
         {
             InitializeComponent();
             Result = result ?? new TimeRangeInfo();
+            _original = result;
         }
+
+        public MessageDialogResult? DiagResult { get; set; }
 
         public TimeRangeInfo Result
         {
@@ -41,11 +44,12 @@ namespace HDTimeManager
                 if (!_shouldSave.Value) Result = null;
                 return;
             }
+            if (_original == Result && _original != null) return;
             e.Cancel = true;
-            var result = await this.ShowMessageAsync("Warning!", "Would you like to save your custom time constraint?",
+            DiagResult = await this.ShowMessageAsync("Warning!", "Would you like to save your custom time constraint?",
                 MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary,
                 new MetroDialogSettings {FirstAuxiliaryButtonText = "Cancel", NegativeButtonText = "No"});
-            switch (result)
+            switch (DiagResult)
             {
                 case MessageDialogResult.Negative:
                     _shouldSave = false;
