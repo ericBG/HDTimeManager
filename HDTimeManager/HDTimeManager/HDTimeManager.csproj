@@ -116,16 +116,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="plus.png" />
+    <Resource Include="Images\plus.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="edit.png" />
-    <Content Include="icons-license.txt" />
-    <Resource Include="minus.png" />
+    <Resource Include="Images\edit.png" />
+    <Content Include="Images\icons-license.txt" />
+    <Resource Include="Images\minus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

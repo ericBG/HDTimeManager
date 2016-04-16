@@ -96,6 +96,7 @@ $tf/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+*.sln.DotSettings
 
 # JustCode is a .NET coding add-in
 .JustCode
@@ -234,3 +235,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Build files
+build.cmd
