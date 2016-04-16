@@ -80,24 +80,9 @@ namespace HDTimeManager
             }
             if (SelectedInfo.Count > 1)
             {
-                foreach (TimeRangeInfo info in SelectedInfo)
-                {
-                    int index = Config.Ranges.IndexOf(info);
-                    var window = new TimeRangeInfoWindow(info);
-                    window.Closed += (o, args) =>
-                    {
-                        switch (window.DiagResult)
-                        {
-                            case MessageDialogResult.Affirmative:
-                                Config.Ranges[index] = window.Result;
-                                break;
-                            case MessageDialogResult.Negative:
-                                break;
-                        }
-                        Config.Save();
-                    };
-                    window.Show();
-                }
+                await this.ShowMessageAsync("Warning!", "Editing many time constraints is not supported. Please select just one.", 
+                    settings: new MetroDialogSettings { AffirmativeButtonText= "OK" });
+                return;
             }
             else
             {
@@ -105,6 +90,7 @@ namespace HDTimeManager
                 var window = new TimeRangeInfoWindow(SelectedInfo[0]);
                 window.ShowDialog();
                 Config.Ranges[index] = window.Result;
+                Config.Save();
             }
         }
 
