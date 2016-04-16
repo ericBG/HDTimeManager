@@ -28,10 +28,10 @@ namespace HDTimeManager
             }
             else Config.TimeSpentToday += timeSpent;
             Config.Save();
-            foreach (TimeRangeInfo info in Config.Ranges.Where(i => i.Active.HasFlag(Today)))
+            foreach (TimeRangeInfo info in Config.Ranges.Where(i => i.Active.HasFlag(Today)).Where(info => Config.TimeSpentToday > (info.Time - info.Range) && info.LastTriggered != DateTime.Today))
             {
-                if (Config.TimeSpentToday > (info.Time - info.Range))
-                    Core.MainWindow.ShowMessageAsync("WARNING", info.Message);
+                Core.MainWindow.ShowMessageAsync("WARNING", info.Message);
+                info.LastTriggered = DateTime.Today;
             }
         }
 

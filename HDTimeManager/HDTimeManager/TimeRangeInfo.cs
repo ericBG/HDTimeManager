@@ -1,4 +1,6 @@
-﻿namespace HDTimeManager
+﻿using System;
+
+namespace HDTimeManager
 {
     public class TimeRangeInfo
     {
@@ -7,6 +9,7 @@
         public Days Active { get; set; }
         public string Message { get; set; }
         public string Name { get; set; }
+        public DateTime LastTriggered { get; set; }
         public override string ToString() => $"TRInfo Name {Name}";
     }
 }
