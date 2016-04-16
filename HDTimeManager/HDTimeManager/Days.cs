@@ -7,14 +7,13 @@ namespace HDTimeManager
     public enum Days
     {
         None = 0x0,
-        Monday = 0x1,
-        Tuesday = 0x2,
-        Wednesday = 0x4,
-        Thursday = 0x8,
-        Friday = 0x10,
-        Saturday = 0x20,
-        Sunday = 0x40,
-        [Description("all days")]
+        Sunday = 0x1,
+        Monday = 0x2,
+        Tuesday = 0x4,
+        Wednesday = 0x8,
+        Thursday = 0x10,
+        Friday = 0x20,
+        Saturday = 0x40,
         All = 0x7F
     }
 }
