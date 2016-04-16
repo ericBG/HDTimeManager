@@ -67,6 +67,7 @@ namespace HDTimeManager
             if (result == MessageDialogResult.Negative) return;
             foreach (var range in SelectedInfo)
                 Config.Ranges.Remove(range);
+            Config.Save();
         }
 
         private async void Edit(object sender, RoutedEventArgs e)
@@ -93,6 +94,7 @@ namespace HDTimeManager
                             case MessageDialogResult.Negative:
                                 break;
                         }
+                        Config.Save();
                     };
                     window.Show();
                 }

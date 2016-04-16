@@ -15,6 +15,7 @@ namespace HDTimeManager
         private DateTime _dayLastUpdated;
         private ObservableCollection<TimeRangeInfo> _ranges;
         private TimeSpan _timeSpentToday;
+        private Object _lock = new Object();
 
         private ConfigInfo()
         {
@@ -66,9 +67,13 @@ namespace HDTimeManager
 
         public void Save()
         {
-            var x = new XmlSerializer(typeof (ConfigInfo), new[] {typeof (TimeRangeInfo)});
-            using (var fs = File.OpenWrite(Path.Combine(ConfigDir, "times.xml")))
-                x.Serialize(fs, this);
+            //naively add a lock becuase I've not got a clue why my XML file seems to be getting messed up
+            lock(_lock)
+            {
+                var x = new XmlSerializer(typeof (ConfigInfo), new[] {typeof (TimeRangeInfo)});
+                using (var fs = File.OpenWrite(Path.Combine(ConfigDir, "times.xml")))
+                    x.Serialize(fs, this);
+            }
         }
 
         [NotifyPropertyChangedInvocator]
