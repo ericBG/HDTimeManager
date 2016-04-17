@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -85,11 +84,10 @@ namespace HDTimeManager
                     settings: new MetroDialogSettings { AffirmativeButtonText= "OK" });
                 return;
             }
-            int index = Config.Ranges.IndexOf(SelectedInfo[0]);
-            var window = new TimeRangeInfoWindow(SelectedInfo[0]);
+            var window = new TimeRangeInfoWindow(SelectedInfo[0].Clone());
             window.ShowDialog();
             if (window.DiagResult == MessageDialogResult.Negative) return;
-            Config.Ranges[index] = window.Result;
+            Config.Ranges[Config.Ranges.IndexOf(SelectedInfo[0])] = window.Result;
             Config.Save();
         }
 
