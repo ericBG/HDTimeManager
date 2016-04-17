@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using HDTimeManager.Annotations;
@@ -11,22 +10,22 @@ namespace HDTimeManager
     /// </summary>
     public partial class TimeSpanSelector : INotifyPropertyChanged
     {
-        public static readonly DependencyProperty HoursIntervalProperty = DependencyProperty.Register(
-            "HoursInterval", typeof (int), typeof (TimeSpanSelector), new PropertyMetadata(1));
+        public static readonly DependencyProperty SpanProperty = DependencyProperty.Register(
+            "Span", typeof (System.TimeSpan), typeof (TimeSpanSelector),
+            new FrameworkPropertyMetadata(default(System.TimeSpan),
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TryingWayyyTooHard));
 
         public static readonly DependencyProperty MinutesIntervalProperty = DependencyProperty.Register(
             "MinutesInterval", typeof (int), typeof (TimeSpanSelector), new PropertyMetadata(5));
 
-        public static readonly DependencyProperty SpanProperty = DependencyProperty.Register(
-            "Span", typeof (System.TimeSpan), typeof (TimeSpanSelector),
-            new PropertyMetadata(default(System.TimeSpan)));
+        public static readonly DependencyProperty HoursIntervalProperty = DependencyProperty.Register(
+            "HoursInterval", typeof (int), typeof (TimeSpanSelector), new PropertyMetadata(1));
 
         public TimeSpanSelector()
         {
             InitializeComponent();
         }
 
-        [Bindable(true)]
         public System.TimeSpan Span
         {
             get { return (System.TimeSpan) GetValue(SpanProperty); }
@@ -56,28 +55,31 @@ namespace HDTimeManager
             }
         }
 
-        [Bindable(true)]
-        [DefaultValue(1)]
-        public int HoursInterval
-        {
-            get { return (int) GetValue(HoursIntervalProperty); }
-            set { SetValue(HoursIntervalProperty, value); }
-        }
-
-        [Bindable(true)]
         [DefaultValue(5)]
+        [Bindable(true)]
         public int MinutesInterval
         {
             get { return (int) GetValue(MinutesIntervalProperty); }
             set { SetValue(MinutesIntervalProperty, value); }
         }
 
+        [DefaultValue(1)]
+        [Bindable(true)]
+        public int HoursInterval
+        {
+            get { return (int) GetValue(HoursIntervalProperty); }
+            set { SetValue(HoursIntervalProperty, value); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private static void TryingWayyyTooHard(DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            ((TimeSpanSelector) dependencyObject).OnPropertyChanged(nameof(Span));
         }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

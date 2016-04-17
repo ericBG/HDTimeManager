@@ -49,7 +49,8 @@ namespace HDTimeManager
         {
             var tsiw = new TimeRangeInfoWindow();
             tsiw.ShowDialog();
-            if (tsiw.Result != null) Config.Ranges.Add(tsiw.Result);
+            if (tsiw.DiagResult == MessageDialogResult.Negative) return;
+            Config.Ranges.Add(tsiw.Result);
             Config.Save();
         }
 
@@ -84,14 +85,12 @@ namespace HDTimeManager
                     settings: new MetroDialogSettings { AffirmativeButtonText= "OK" });
                 return;
             }
-            else
-            {
-                int index = Config.Ranges.IndexOf(SelectedInfo[0]);
-                var window = new TimeRangeInfoWindow(SelectedInfo[0]);
-                window.ShowDialog();
-                Config.Ranges[index] = window.Result;
-                Config.Save();
-            }
+            int index = Config.Ranges.IndexOf(SelectedInfo[0]);
+            var window = new TimeRangeInfoWindow(SelectedInfo[0]);
+            window.ShowDialog();
+            if (window.DiagResult == MessageDialogResult.Negative) return;
+            Config.Ranges[index] = window.Result;
+            Config.Save();
         }
 
         [NotifyPropertyChangedInvocator]

@@ -10,6 +10,17 @@ namespace HDTimeManager
         public string Message { get; set; }
         public string Name { get; set; }
         public DateTime LastTriggered { get; set; }
-        public override string ToString() => $"TRInfo Name {Name}";
+
+        public TimeRangeInfo Clone()
+            =>
+                new TimeRangeInfo
+                {
+                    Active = Active,
+                    LastTriggered = LastTriggered,
+                    Message = Message,
+                    Name = Name,
+                    Range = Range,
+                    Time = Time
+                };
     }
 }

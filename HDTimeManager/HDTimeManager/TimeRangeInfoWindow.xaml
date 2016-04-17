@@ -4,6 +4,7 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:local="clr-namespace:HDTimeManager"
+                      xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                       Title="Add/Edit Restriction"
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Path=Result}"
                       Height="300" MinHeight="300" MaxHeight="300" Width="400" MinWidth="400" MaxWidth="400">
@@ -72,6 +73,7 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type dialog:MessageDialog}" BasedOn="{StaticResource NewMessageDialogStyle}"/>
+        <local:TimeSpanToTimeSpanXMLConverter x:Key="ImplicitFuckingConversion" />
     </controls:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -94,13 +96,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
-                <ColumnDefinition SharedSizeGroup="DayButtons" />
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
+                <ColumnDefinition SharedSizeGroup="DayButtons"/>
             </Grid.ColumnDefinitions>
             <ToggleButton Margin="2"
                           IsChecked="{Binding Path=Active, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static local:Days.Monday}}">
@@ -141,12 +143,12 @@
                    HorizontalAlignment="Right" Margin="0,0,5,0">
             Length of time (hours, minutes):
         </TextBlock>
-        <local:TimeSpanSelector Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <local:TimeSpanSelector Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Span="{Binding Path=Time, Converter={StaticResource ImplicitFuckingConversion}}" diag:PresentationTraceSources.TraceLevel="High" x:Name="timeSelector"/>
         <TextBlock Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center"
                    HorizontalAlignment="Right" Margin="0,0,5,0">
             Leeway (hours, minutes):
         </TextBlock>
-        <local:TimeSpanSelector Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" Span="{Binding Range}" MinutesInterval="1"/>
+        <local:TimeSpanSelector Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" Span="{Binding Path=Range, Converter={StaticResource ImplicitFuckingConversion}}" MinutesInterval="1" diag:PresentationTraceSources.TraceLevel="High" x:Name="rangeSelector"/>
         <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">Message:</TextBlock>
         <TextBox Text="{Binding Message}" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" Margin="0,5" />
         <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">Name:</TextBlock>

@@ -12,14 +12,14 @@ namespace HDTimeManager
     public partial class TimeRangeInfoWindow : INotifyPropertyChanged
     {
         private TimeRangeInfo _result;
-        private bool? _shouldSave = null;
+        private bool _shouldExit = false;
         private readonly TimeRangeInfo _original;
 
         public TimeRangeInfoWindow(TimeRangeInfo result = null)
         {
             InitializeComponent();
             Result = result ?? new TimeRangeInfo();
-            _original = result;
+            _original = result?.Clone();
         }
 
         public MessageDialogResult? DiagResult { get; set; }
@@ -39,11 +39,7 @@ namespace HDTimeManager
 
         protected override async void OnClosing(CancelEventArgs e)
         {
-            if (_shouldSave.HasValue)
-            {
-                if (!_shouldSave.Value) Result = null;
-                return;
-            }
+            if (_shouldExit) return;
             if (_original == Result && _original != null) return;
             e.Cancel = true;
             DiagResult = await this.ShowMessageAsync("Warning!", "Would you like to save your custom time constraint?",
@@ -52,11 +48,8 @@ namespace HDTimeManager
             switch (DiagResult)
             {
                 case MessageDialogResult.Negative:
-                    _shouldSave = false;
-                    Close();
-                    break;
                 case MessageDialogResult.Affirmative:
-                    _shouldSave = true;
+                    _shouldExit = true;
                     Close();
                     break;
                 case MessageDialogResult.FirstAuxiliary:
@@ -72,13 +65,13 @@ namespace HDTimeManager
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            _shouldSave = false;
+            _shouldExit = false;
             Close();
         }
 
         private void OKClick(object sender, RoutedEventArgs e)
         {
-            _shouldSave = true;
+            _shouldExit = true;
             Close();
         }
     }

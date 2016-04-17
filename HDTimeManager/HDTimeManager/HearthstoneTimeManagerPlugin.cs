@@ -51,13 +51,13 @@ namespace HDTimeManager
                 Config.TimeSpentToday = timeSpent;
             }
             else Config.TimeSpentToday += timeSpent;
-            Config.Save();
             foreach (var info in Config.Ranges.Where(i => i.Active.HasFlag(Today) && Config.TimeSpentToday > (i.Time - i.Range) && i.LastTriggered != DateTime.Today))
             {
                 FlashWindowInfo.Invoke(null, new object[] {new WindowInteropHelper(Core.MainWindow).Handle, false});
                 Core.MainWindow.ShowMessageAsync("WARNING", info.Message);
                 info.LastTriggered = DateTime.Today;
             }
+            Config.Save();
         }
     }
 }
